@@ -1,9 +1,12 @@
 import codecs
 import csv
+import re
+
 from typing import Literal, List, TypedDict, Dict
 from fastapi import UploadFile
 from openai import OpenAI
 
+import translator_service
 from config import Settings
 
 settings = Settings()
@@ -37,8 +40,7 @@ async def handle_tagging(file: UploadFile, count: int) -> Dict[Literal["data"], 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages)
-    english_tags = response.choices[0].message.content.split(",")
-
-    estonian_tags = ["empty"]
+    english_tags = re.split(r"\s?,\s?", response.choices[0].message.content)
+    estonian_tags = translator_service.translate_text(english_tags, src="en", dest="et")
 
     return {"data": {"english": english_tags, "estonian": estonian_tags}}
