@@ -26,7 +26,8 @@ async def handle_tagging(file: UploadFile, count: int) -> Dict[Literal["data"], 
                                               "The first row will be in the following form: title1,title2,title3,etc..."
                                               "The next rows will be in the following form: value1,value2,value3,etc..."
                                               f"Output {count} tags that describe the dataset best. Output only the "
-                                              "suitable tags in the form of: tag1,tag2,tag3,etc... Tags should be in English"}]
+                                              "suitable tags in the form of: tag1,tag2,tag3,etc... Tags should be in English."
+                                              "Try to make the tags general but relevant."}]
 
     i = 0
     user_message = ""
