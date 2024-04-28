@@ -1,7 +1,11 @@
-export async function postFile(file) {
+export async function postFile(file, numberOfTags, model) {
   const data = new FormData();
   data.append("file", file)
 
-  const response = await fetch(process.env.REACT_APP_BACKEND_URL, { method: "POST", body: data });
+  const url = new URL(process.env.REACT_APP_BACKEND_URL);
+  url.searchParams.set("count", numberOfTags);
+  url.searchParams.set("model", model);
+
+  const response = await fetch(url, { method: "POST", body: data });
   return (await response.json()).data;
 }

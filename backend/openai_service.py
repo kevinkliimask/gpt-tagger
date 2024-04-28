@@ -18,7 +18,7 @@ class TagsData(TypedDict):
     estonian: List[str]
 
 
-async def handle_tagging(file: UploadFile, count: int) -> Dict[Literal["data"], TagsData]:
+async def handle_tagging(file: UploadFile, count: int, model: str) -> Dict[Literal["data"], TagsData]:
     reader = csv.reader(codecs.iterdecode(file.file, "utf-8"))
 
     messages = [{"role": "system", "content": "You will generate tags for a dataset. I will provide your the first rows"
@@ -39,7 +39,7 @@ async def handle_tagging(file: UploadFile, count: int) -> Dict[Literal["data"], 
     messages.append({"role": "user", "content": user_message})
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=model,
         messages=messages)
     english_tags = re.split(r"\s?,\s?", response.choices[0].message.content)
     estonian_tags = translator_service.translate_text(english_tags, src="en", dest="et")

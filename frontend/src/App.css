@@ -2,8 +2,33 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   height: 100vh;
   justify-content: center;
   text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 2px 5px 10px #BCBCBC;
+  gap: 1rem;
+}
+
+.selections {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.selections span {
+  margin-right: 0.5rem;
+}
+
+.upload {
+  margin-bottom: 1rem;
 }
