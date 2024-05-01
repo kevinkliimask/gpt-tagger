@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import "./App.css";
 import { postFile } from "./api/postFile";
+import { readCsv } from "./utils/csvReader";
 
 const NUMBER_OF_TAGS = [3, 4, 5, 6, 7, 8, 9, 10];
 const MODELS = ["gpt-3.5-turbo", "gpt-4"];
@@ -21,7 +22,9 @@ function App() {
       setTags(null);
       setError(null);
       setIsLoading(true);
-      setTags(await postFile(file, selectedNumberOfTags, selectedModel));
+
+      const csvData = await readCsv(file);
+      setTags(await postFile(csvData, selectedNumberOfTags, selectedModel));
     } catch (e) {
       setError(e);
       console.error(e);
